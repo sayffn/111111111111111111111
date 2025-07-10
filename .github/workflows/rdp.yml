@@ -1,21 +1,22 @@
-name: RDP
+name: TECHNOVISION - LiteManager
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
 
 jobs:
   build:
+    name: Start Building...
     runs-on: windows-latest
+    timeout-minutes: 9999
+    
     steps:
-      - name: Download ngrok
+      - name: Downloading & Installing Essentials
         run: |
-          Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-          Expand-Archive ngrok.zip
-          ./ngrok.exe authtoken YOUR_AUTH_TOKEN
+          Invoke-WebRequest -Uri “https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat” -OutFile “Downloads.bat”
+          cmd /c Downloads.bat
 
-      - name: Enable RDP
-        run: |
-          net user kamel123 MyStrong123 /add
-          net localgroup administrators kamel123 /add
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value 0
-          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-          ./ngrok.exe tcp 3389
+      - name: TECHNOVISION 
+        run: cmd /c show.bat
+
+      - name: like and subscribe 
+        run: cmd /c loop.bat
