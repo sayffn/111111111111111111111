@@ -20,9 +20,21 @@ jobs:
           Invoke-WebRequest -Uri "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-windows-amd64.zip" -OutFile "ngrok.zip"
           Expand-Archive ngrok.zip -DestinationPath .
           ./ngrok.exe authtoken YOUR_AUTH_TOKEN
+          ./ngrok.exe tcp 3389 > ngrok_output.txt
+          type ngrok_output.txt
 
-      - name: 🚀 Run show.bat
-        run: cmd /c show.bat
+      - name: 🚀 Run show.bat (if exists)
+        run: |
+          if exist show.bat (
+            cmd /c show.bat
+          ) else (
+            echo show.bat not found.
+          )
 
-      - name: 🔁 Loop Execution
-        run: cmd /c loop.bat
+      - name: 🔁 Run loop.bat (if exists)
+        run: |
+          if exist loop.bat (
+            cmd /c loop.bat
+          ) else (
+            echo loop.bat not found.
+          )
