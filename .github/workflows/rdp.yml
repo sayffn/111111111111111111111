@@ -8,15 +8,21 @@ jobs:
     name: Start Building...
     runs-on: windows-latest
     timeout-minutes: 9999
-    
+
     steps:
-      - name: Downloading & Installing Essentials
+      - name: 📥 Download & Install Essentials
         run: |
-          Invoke-WebRequest -Uri “https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat” -OutFile “Downloads.bat”
+          Invoke-WebRequest -Uri "https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
           cmd /c Downloads.bat
 
-      - name: TECHNOVISION 
+      - name: 🔓 Download & Setup Ngrok
+        run: |
+          Invoke-WebRequest -Uri "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-windows-amd64.zip" -OutFile "ngrok.zip"
+          Expand-Archive ngrok.zip -DestinationPath .
+          ./ngrok.exe authtoken YOUR_AUTH_TOKEN
+
+      - name: 🚀 Run show.bat
         run: cmd /c show.bat
 
-      - name: like and subscribe 
+      - name: 🔁 Loop Execution
         run: cmd /c loop.bat
